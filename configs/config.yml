@@ -1,0 +1,16 @@
+port: "8003"
+maxLenghtOfShortURL: "7"
+
+db:
+  username: "mongo"
+  host: "localhost"
+  port: "27017"
+  dbname: "test1-mongo"
+  sslmode: "disable"
+  default_database: "URLs"
+
+dbTables:
+  subscription: subscription
+  weather: weather
+  weather_archive: weather_archive
+
