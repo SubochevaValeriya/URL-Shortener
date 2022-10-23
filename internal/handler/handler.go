@@ -29,7 +29,7 @@ func RegisterRoutes(h *Handler) http.Handler {
 		r.Get("/urls/{shortURL}", h.GetURL)
 		r.Get("/", h.MainPage)
 		r.Post("/new", h.AddURL) //POST /contacts
-		r.Get("/new2", h.ShortURLPage)
+		r.Get("/{shortURL}", h.ShortURLPage)
 	})
 
 	walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {

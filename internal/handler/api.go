@@ -7,8 +7,6 @@ import (
 	"net/http"
 )
 
-var shortURL string
-
 func (h *Handler) AddURL(w http.ResponseWriter, r *http.Request) {
 
 	//var urlInfo urls.UrlInfo
@@ -30,7 +28,7 @@ func (h *Handler) AddURL(w http.ResponseWriter, r *http.Request) {
 	//w.WriteHeader(201)
 
 	//h.ShortURLPage(w, r, shortURL)
-	http.Redirect(w, r, "new2", http.StatusSeeOther)
+	http.Redirect(w, r, shortURL, http.StatusSeeOther)
 	//	http.Redirect(w, r, "https://hub.docker.com/_/mongo", 300)
 	fmt.Println("f")
 }
@@ -63,5 +61,6 @@ func (h *Handler) MainPage(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) ShortURLPage(w http.ResponseWriter, r *http.Request) {
 	tmpl, _ := template.ParseFiles("template/index_short.html")
+	shortURL := chi.URLParam(r, "shortURL")
 	tmpl.ExecuteTemplate(w, "shortURL", shortURL)
 }
