@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  shortener-app:
+    build: ./
+    ports:
+      - "8003:8003"
+    depends_on:
+      - db
+    environment:
+      - host=db
+      - DB_PASSWORD=qwerty
+
+  db:
+    restart: always
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./.database/mongo/data:/var/lib/mongo/data
+    ports:
+      - "27017:27017"
