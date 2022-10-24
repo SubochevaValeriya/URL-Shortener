@@ -33,16 +33,3 @@ func NewHandler(mongoConfig MongoConfig) (*MongoHandler, error) {
 	}
 	return mongoDB, nil
 }
-
-//func NewHandler(address string, defaultDatabase string) (*MongoHandler, error) {
-//	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-//	cl, err := mongo.Connect(ctx, options.Client().ApplyURI(address))
-//	if err != nil {
-//		return nil, err
-//	}
-//	mongoDB := &MongoHandler{
-//		client:   cl,
-//		database: defaultDatabase,
-//	}
-//	return mongoDB, nil
-//}

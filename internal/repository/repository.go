@@ -1,7 +1,7 @@
 package repository
 
 import (
-	urls "URLShortener"
+	urls "github.com/SubochevaValeriya/URL-Shortener"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

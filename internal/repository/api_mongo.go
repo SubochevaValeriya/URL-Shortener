@@ -1,9 +1,9 @@
 package repository
 
 import (
-	urls "URLShortener"
 	"context"
 	"fmt"
+	urls "github.com/SubochevaValeriya/URL-Shortener"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"time"
