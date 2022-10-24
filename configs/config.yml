@@ -1,12 +1,12 @@
-port: "8003"
+port: "8005"
 maxLenghtOfShortURL: "7"
+address: "localhost:8005"
 
 db:
   username: "mongo"
   host: "localhost"
   port: "27017"
   dbname: "test1-mongo"
-  sslmode: "disable"
   default_database: "URLs"
 
 dbTables:
