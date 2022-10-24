@@ -1,7 +1,8 @@
 package service
 
 import (
-	"URLShortener/internal/repository"
+	_ "github.com/SubochevaValeriya/URL-Shortener"
+	"github.com/SubochevaValeriya/URL-Shortener/internal/repository"
 )
 
 type URLs interface {

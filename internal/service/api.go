@@ -1,9 +1,9 @@
 package service
 
 import (
-	urls "URLShortener"
-	"URLShortener/internal/repository"
 	"fmt"
+	urls "github.com/SubochevaValeriya/URL-Shortener"
+	"github.com/SubochevaValeriya/URL-Shortener/internal/repository"
 	"math/rand"
 	"net/url"
 	"time"
