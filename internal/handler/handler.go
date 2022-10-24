@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"URLShortener/internal/service"
 	"fmt"
+	"github.com/SubochevaValeriya/URL-Shortener/internal/service"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"net/http"
