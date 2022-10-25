@@ -1,4 +1,4 @@
-## A service to create short URLs.
+## A service to create short URLs
 
 ### To run an app:
 
