@@ -1,11 +1,11 @@
 package main
 
 import (
-	urls "URLShortener"
-	"URLShortener/internal/handler"
-	"URLShortener/internal/repository"
-	"URLShortener/internal/service"
 	"context"
+	urls "github.com/SubochevaValeriya/URL-Shortener"
+	"github.com/SubochevaValeriya/URL-Shortener/internal/handler"
+	"github.com/SubochevaValeriya/URL-Shortener/internal/repository"
+	"github.com/SubochevaValeriya/URL-Shortener/internal/service"
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -17,31 +17,29 @@ import (
 )
 
 func main() {
+	// logs
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
+	// configs
 	if err := initConfig(); err != nil {
 		logrus.Fatalf("error initializing congigs: %s", err.Error())
 	}
 
+	// environmental variables
 	if err := godotenv.Load(); err != nil {
 		logrus.Fatalf("error loading env variables: %s", err.Error())
 	}
 
-	//mongoDbConnection := "mongodb://localhost:27017" // заменить
-
+	// DB Config
 	mongoConfig := repository.MongoConfig{
-		Host:            viper.GetString("db.host"),
+		Host:            os.Getenv("host"),
 		Port:            viper.GetString("db.port"),
 		DefaultDatabase: viper.GetString("db.default_database"),
 	}
 
-	//	mongoDbConnection := "mongodb://" + viper.GetString("db.host") + ":" + viper.GetString("db.port")
-
 	dbTables := repository.DbTables{CollectionName: mongoConfig.DefaultDatabase}
-	mh, err := repository.NewHandler(mongoConfig) //Create an instance of MongoHander with the connection string provided
+	mh, err := repository.NewHandler(mongoConfig)
 
-	//dbTables := repository.DbTables{CollectionName: viper.GetString("db.default_database")}
-	//mh, err := repository.NewHandler(mongoDbConnection, dbTables.CollectionName) //Create an instance of MongoHander with the connection string provided
 	if err != nil {
 		logrus.Fatalf("failed to inititalize db: %s", err.Error())
 	}
@@ -52,6 +50,12 @@ func main() {
 	handlers := handler.NewHandler(services)
 	srv := new(urls.Server)
 	r := handler.RegisterRoutes(handlers)
+
+	// create index on Short URL (because we will search on this parameter)
+	err = repos.CreateIndex("short_URL")
+	if err != nil {
+		logrus.Errorf("failed to create index")
+	}
 
 	go func() {
 		if err := srv.Run(viper.GetString("port"), r); err != nil {
@@ -71,17 +75,6 @@ func main() {
 	if err := srv.Shutdown(context.Background()); err != nil {
 		logrus.Errorf("error occured on server shutting down: %s", err.Error())
 	}
-
-	//log.Fatal(http.ListenAndServe(":"+viper.GetString("port"), r))
-
-	//walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
-	//	fmt.Printf("%s %s\n", method, route)
-	//	return nil
-	//}
-	//
-	//if err := chi.Walk(r, walkFunc); err != nil {
-	//	fmt.Printf("Logging err: %s\n", err.Error())
-	//}
 }
 
 func initConfig() error {

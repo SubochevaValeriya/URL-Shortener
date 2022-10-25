@@ -6,29 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="colorlib.com">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-    <link href="templates/css/main2.css" rel="stylesheet" />
+    <link href="templates/css/main3.css" rel="stylesheet" />
   </head>
   <body>
     <div class="s131">
       <form>
         <div class="inner-form">
           <div class="input-field first-wrap">
-<dl> {{.}}</dl>
-            <input id="search" type="text" name="short" placeholder="INSERT LONG URL" />
+              <dl id="search" type="text" name="short"> <script type="text/javascript">
+                 host = location.host
+                 path = location.pathname
+                 document.write(host+"/urls"+path);
+              </script></dl>
            </div>
            <div class="input-field third-wrap">
-             <button class="btn-search" type="button">COPY SHORT URL</button>
+             <button class="btn-search" type="button" onclick="copy()">COPY SHORT URL</button>
            </div>
          </div>
        </form>
      </div>
      <script src="templates/js/extention/choices.js"></script>
      <script>
-       const choices = new Choices('[data-trigger]',
-       {
-         searchEnabled: false
-       });
-
+         function copy() {
+             var copyText = document.getElementById("search").innerText;
+             var elem = document.createElement("textarea");
+             document.body.appendChild(elem);
+             elem.value = copyText;
+             elem.select();
+             document.execCommand("copy");
+             document.body.removeChild(elem);
+             alert("Copied the text");
+         }
      </script>
    </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

@@ -1,14 +1,16 @@
 package repository
 
 import (
-	urls "URLShortener"
+	urls "github.com/SubochevaValeriya/URL-Shortener"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type URLs interface {
 	AddURL(urlInfo *urls.UrlInfo) (*mongo.InsertOneResult, error)
 	GetURL(c *urls.UrlInfo, shortURL string) error
-	IncreaseVisits(shortURL string, visits int)
+	IncreaseVisits(shortURL string, visits int) error
+	CreateIndex(field string) error
+	DeleteURL(shortURL string) error
 }
 
 type Repository struct {
