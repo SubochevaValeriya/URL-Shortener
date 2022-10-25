@@ -20,11 +20,13 @@ func NewHandler(services *service.Service) *Handler {
 
 func RegisterRoutes(h *Handler) http.Handler {
 	r := chi.NewRouter()
-	r.Use(middleware.Logger)
+	r.Use(middleware.Logger) //middleware
 
+	// loads templates
 	fs := http.FileServer(http.Dir("template"))
-	fmt.Println(fs)
 	r.Handle("/templates/*", fs)
+
+	// handlers
 	r.Route("/", func(r chi.Router) {
 		r.Get("/urls/{shortURL}", h.GetURL)
 		r.Get("/", h.MainPage)
@@ -32,6 +34,7 @@ func RegisterRoutes(h *Handler) http.Handler {
 		r.Get("/{shortURL}", h.ShortURLPage)
 	})
 
+	// list of handlers
 	walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
 		route = strings.Replace(route, "/*/", "/", -1)
 		fmt.Printf("%s %s\n", method, route)

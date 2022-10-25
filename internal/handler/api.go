@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-// AddURL makes short URL for original URL
+// AddURL creates short version of original URL
 func (h *Handler) AddURL(w http.ResponseWriter, r *http.Request) {
 
 	originalURL := r.FormValue("longURL")
@@ -17,15 +17,16 @@ func (h *Handler) AddURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	shortURL, err := h.services.AddURL(originalURL)
+	if shortURL == "" {
+		http.Error(w, "validation error", 400)
+		return
+	}
+
 	if err != nil {
 		http.Error(w, fmt.Sprint(err), 500)
 		return
 	}
 
-	//w.Write([]byte(fmt.Sprintf("URL added successfully, short version: %s", shortURL)))
-	//w.WriteHeader(201)
-
-	//h.ShortURLPage(w, r, shortURL)
 	http.Redirect(w, r, shortURL, http.StatusSeeOther)
 
 }
@@ -33,8 +34,9 @@ func (h *Handler) AddURL(w http.ResponseWriter, r *http.Request) {
 // GetURL redirects to original URL
 func (h *Handler) GetURL(w http.ResponseWriter, r *http.Request) {
 	shortURL := chi.URLParam(r, "shortURL")
+
 	if shortURL == "" {
-		http.Error(w, http.StatusText(404), 404)
+		http.Error(w, http.StatusText(400), 400)
 		return
 	}
 
