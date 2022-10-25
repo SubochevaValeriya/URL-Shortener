@@ -8,11 +8,5 @@
 make build && make run
 ```
 
-Create swagger documentation:
-
-```
-make swag
-```
-
 
 **Used:** *MongoDB, REST API principles, chi router, docker-compose.*
