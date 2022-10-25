@@ -1,6 +1,6 @@
 ## A service to create short URLs
 
-![Image alt](https://github.com/SubochevaValeriya/Board-Game-Telegram-Bot/raw/main/template/templates/images/go2.png)
+![Image alt](https://github.com/SubochevaValeriya/URL-Shortener/blob/main/template/templates/images/go2.png)
 
 ### To run an app:
 
