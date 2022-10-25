@@ -10,3 +10,9 @@ make build && make run
 
 
 **Used:** *MongoDB, REST API principles, chi router, docker-compose.*
+
+### Ideas:
+
+- [ ] - authorization
+
+- [ ] - visits statistics
