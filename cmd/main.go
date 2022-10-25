@@ -32,7 +32,7 @@ func main() {
 
 	// DB Config
 	mongoConfig := repository.MongoConfig{
-		Host:            viper.GetString("db.host"),
+		Host:            os.Getenv("host"),
 		Port:            viper.GetString("db.port"),
 		DefaultDatabase: viper.GetString("db.default_database"),
 	}
