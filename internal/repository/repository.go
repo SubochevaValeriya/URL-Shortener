@@ -8,7 +8,9 @@ import (
 type URLs interface {
 	AddURL(urlInfo *urls.UrlInfo) (*mongo.InsertOneResult, error)
 	GetURL(c *urls.UrlInfo, shortURL string) error
-	IncreaseVisits(shortURL string, visits int)
+	IncreaseVisits(shortURL string, visits int) error
+	CreateIndex(field string) error
+	DeleteURL(shortURL string)
 }
 
 type Repository struct {
