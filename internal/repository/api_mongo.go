@@ -59,8 +59,9 @@ func (r *ApiMongo) CreateIndex(field string) error {
 }
 
 // DeleteURL deletes record on filter "short URL"
-func (r *ApiMongo) DeleteURL(shortURL string) {
+func (r *ApiMongo) DeleteURL(shortURL string) error {
 	collection := r.db.client.Database(r.db.Database).Collection(r.dbTables.CollectionName)
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
-	collection.DeleteOne(ctx, bson.M{"short_URL": shortURL})
+	_, err := collection.DeleteOne(ctx, bson.M{"short_URL": shortURL})
+	return err
 }
