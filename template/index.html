@@ -15,18 +15,23 @@
             <input id="search" type="text" name="longURL" placeholder="INSERT LONG URL" />
           </div>
           <div class="input-field third-wrap">
-            <button class="btn-search" type="button">GET SHORT URL</button>
+            <button id="myInput" class="btn-search" type="button" onkeypress="return searchKeyPress(event);">GET SHORT URL</button>
           </div>
         </div>
       </form>
     </div>
-    <script src="templates/js/extention/choices.js"></script>
+<!--    <script src="templates/js/extention/choicdes.js"></script>-->
     <script>
-      const choices = new Choices('[data-trigger]',
-      {
-        searchEnabled: false
-      });
-
+      const txtSearchEl = document.getElementById('search')
+      const btnSearchEl = document.getElementById('myInput')
+      txtSearchEl.addEventListener('keydown', (event) => {
+        if (event.keyCode == 13) {
+          btnSearchEl.click()
+        }
+      })
+      btnSearchEl.addEventListener('click', () => {
+        console.log('search button clicked')
+      })
     </script>
   </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
