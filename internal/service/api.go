@@ -34,12 +34,11 @@ func (s *ApiService) AddURL(originalURL string) (string, error) {
 
 	_, err = s.repo.AddURL(&urlInfo)
 
-	fmt.Println(shortURL)
 	return shortURL, err
 }
 
 func validateURL(originalURL string) (*url.URL, error) {
-	urlT, err := url.Parse(originalURL)
+	urlT, err := url.ParseRequestURI(originalURL)
 	if err != nil {
 		return urlT, fmt.Errorf("validation error: %w", err)
 	}
@@ -64,8 +63,9 @@ func randomShortURL() string {
 func (s *ApiService) GetURL(shortURL string) (string, error) {
 	URLInfo := urls.UrlInfo{}
 	err := s.repo.GetURL(&URLInfo, shortURL)
-	s.repo.IncreaseVisits(shortURL, URLInfo.Visits+1)
-	fmt.Println(URLInfo)
-	fmt.Println(err)
+	if err != nil {
+		return URLInfo.OriginalURL, err
+	}
+	err = s.repo.IncreaseVisits(shortURL, URLInfo.Visits+1)
 	return URLInfo.OriginalURL, err
 }
